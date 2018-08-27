@@ -19,8 +19,9 @@ services:
         deploy:
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.loadbalancer == true
+            placement:
+                constraints:
+                    - node.labels.loadbalancer == true
         networks:
             - frontend
             - backend
@@ -36,8 +37,9 @@ services:
         deploy:
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.drawio == true
+            placement:
+                constraints:
+                    - node.labels.drawio == true
         networks:
             - frontend # should this be on backend only?
             - backend
@@ -54,8 +56,9 @@ services:
             replicas: 2
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.loadbalancer == true
+            placement:
+                constraints:
+                    - node.labels.loadbalancer == true
         networks:
             - frontend
 
@@ -67,8 +70,9 @@ services:
         deploy:
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.drawio == true
+            placement:
+                constraints:
+                    - node.labels.drawio == true
         networks:
             - frontend
 
@@ -88,8 +92,9 @@ services:
         deploy:
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.jobdb == true
+            placement:
+                constraints:
+                    - node.labels.jobdb == true
         networks:
             - backend
 
@@ -109,8 +114,9 @@ services:
         deploy:
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.grafana == true
+            placement:
+                constraints:
+                    - node.labels.grafana == true
         networks:
             - frontend
 
@@ -127,8 +133,9 @@ services:
         deploy:
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.grafana == true
+            placement:
+                constraints:
+                    - node.labels.grafana == true
         networks:
             - frontend
 
@@ -143,8 +150,9 @@ services:
         deploy:
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.archimedes_services == true
+            placement:
+                constraints:
+                    - node.labels.archimedes_services == true
         networks:
             - frontend
 
@@ -157,8 +165,9 @@ services:
             replicas: 1
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.archimedes_services == true
+            placement:
+                constraints:
+                    - node.labels.archimedes_services == true
         networks:
             - backend
         
@@ -174,8 +183,9 @@ services:
             replicas: 2
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.archimedes_services == true
+            placement:
+                constraints:
+                    - node.labels.archimedes_services == true
         networks:
             - backend
 
@@ -191,8 +201,9 @@ services:
             replicas: 2
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.archimedes_services == true
+            placement:
+                constraints:
+                    - node.labels.archimedes_services == true
         networks:
             - backend
 
@@ -207,8 +218,9 @@ services:
             replicas: 2
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.archimedes_services == true
+            placement:
+                constraints:
+                    - node.labels.archimedes_services == true
         networks:
             - backend
 
@@ -222,8 +234,9 @@ services:
             replicas: 2
             restart_policy:
                 condition: always
-            constraints:
-                - node.labels.archimedes_services == true
+            placement:
+                constraints:
+                    - node.labels.archimedes_services == true
         networks:
             - frontend
             - backend
