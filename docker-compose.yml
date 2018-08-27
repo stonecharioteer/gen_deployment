@@ -14,12 +14,11 @@ services:
         build:
             context: ./servicediscovery
         image: cae.driveline.gkn.com:5000/archimedes-deployment/servicediscovery
-        restart: always
         ports:
             - "8500:8500"
         deploy:
             restart_policy:
-                condition: true
+                condition: always
             constraints:
                 - node.labels.loadbalancer == true
         networks:
