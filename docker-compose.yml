@@ -34,10 +34,10 @@ services:
         networks:
         - agent_network
         deploy:
-        mode: replicated
-        replicas: 1
-        placement:
-            constraints: [node.role == manager]
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints: [node.role == manager]
 
     # support services
     servicediscovery:
