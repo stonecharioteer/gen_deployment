@@ -3,6 +3,7 @@
 # docker stack deploy --compose-file docker-compose.yml archimedes_services
 # The images should be built and uploaded to the registry separately.
 # TODO: Write a script for that.
+
 version: "3.7"
 services:
     serviceregistry:
@@ -36,8 +37,6 @@ services:
     drawio:
         # Clone of the draw.io docker (fjudith/draw.io) image.
         image: cae.driveline.gkn.com:5000/draw.io
-
-    
 
     docs:
         # Documentation.
