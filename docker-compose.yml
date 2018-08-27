@@ -6,68 +6,231 @@
 
 version: "3.7"
 services:
-    serviceregistry:
-        # Consul container for service registry.
+
+    # support services
+    servicediscovery:
+        # Consul container for service discovery.
         # Runs on node managers.
-        image: cae.driveline.gkn.com:5000/consul
+        build:
+            context: ./servicediscovery
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/servicediscovery
+        restart: always
+        ports:
+            - "8500:8500"
+        deploy:
+            restart_policy:
+                condition: true
+            constraints:
+                - node.labels.loadbalancer == true
+        networks:
+            - frontend
+            - backend
+
+    messagequeue:
+        # Rabbitmq container
+        # TODO: Scale across nodes
+        build:
+            context: ./messagequeue
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/messagequeue
+        ports:
+            - "15672:15672"
+        deploy:
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.drawio == true
+        networks:
+            - frontend # should this be on backend only?
+            - backend
+
+    revproxy:
+        # nginx reverse proxy.
+        build:
+            context: ./reverseproxy
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/reverseproxy
+        ports:
+            - "80:80"
+        deploy:
+            mode: replicated
+            replicas: 2
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.loadbalancer == true
+        networks:
+            - frontend
+
+    drawio:
+        # Clone of the draw.io docker (fjudith/draw.io) image.
+        build:
+            context: ./drawio
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/drawio
+        deploy:
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.drawio == true
+        networks:
+            - frontend
 
     jobdb:
         # Job database.
         # Mongo based container.
         # TOOD: Find out how to have a shared instance over multiple nodes.
-        image: cae.driveline.gkn.com:5000/mongo
+        build:
+            context: ./jobdb
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/jobdb
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=P@ssw0rd
+        volumes:
+            - /opt/data/jobdb/data:/data/db
+        deploy:
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.jobdb == true
+        networks:
+            - backend
 
     cachedb:
         # Cached database for grafana
-        image: cae.driveline.gkn.com:5000/mysqldb
-
-    messagequeue:
-        # Rabbitmq container
-        # Scale across nodes.
-        image: cae.driveline.gkn.com:5000/rabbitmq
-
-    revproxy:
-        # nginx reverse proxy.
-        image: cae.driveline.gkn.com:5000/reverseproxy
-        ports:
-            - "80:80"
+        # uses mysql
+        build:
+            context: ./cachedb
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/cachedb
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=P@ssw0rd
+        volumes:
+            - /opt/data/cachedb/data:/var/lib/mysql
+        # disable the strict mode
+        command: --sql_mode=""
         deploy:
-            replicas: 2
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.grafana == true
+        networks:
+            - frontend
 
-    drawio:
-        # Clone of the draw.io docker (fjudith/draw.io) image.
-        image: cae.driveline.gkn.com:5000/draw.io
+    grafana:
+        build:
+            context: ./grafana
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/grafana
+        restart: always
+        volumes:
+            - grafana-storage:/var/lib/grafana
+        environment:
+            - GF_SERVER_DOMAIN=cae.driveline.gkn.com
+            - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/grafana/
+        deploy:
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.grafana == true
+        networks:
+            - frontend
 
+    # Archimedes services follow here.
     docs:
         # Documentation.
         # This is an Apache httpd image which just hosts the sphinx
         # docs for archimedes.
-        image: cae.driveline.gkn.com:5000/archimedes_docs
+        build:
+            context: ./archimedes_docs
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/archimedes_docs
+        deploy:
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.archimedes_services == true
+        networks:
+            - frontend
 
     peter:
         # Authentication service
         # This is the archimedes authentication service
-        image: cae.driveline.gkn.com:5000/archimedes_peter
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/peter
         deploy:
-            replicas: 2
-
-    jameswatt:
-        # User Interface Service
-        # This is an Apache httpd image which hosts the UI.
-        image: cae.driveline.gkn.com:5000/archimedes_jameswatt
-        deploy:
-            replicas: 2
+            # TODO: Enable multiple instances, with a shared cache of tokens between them; maybe use memcached for this.
+            replicas: 1
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.archimedes_services == true
+        networks:
+            - backend
+        
 
     ramanujan:
         # Job management service.
         # This writes to the job queue.
-        image: cae.driveline.gkn.com:5000/ramanujan
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/ramanujan
+        depends_on:
+            - messagequeue
+            - jobdb
         deploy:
             replicas: 2
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.archimedes_services == true
+        networks:
+            - backend
 
     lineage:
         # For now, the SVN Linker services
         # This should be expanded to have data provenance.
         # should this also handle the search?
-        image: cae.driveline.gkn.com:5000/archimedes_lineage
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/archimedes_lineage
+        depends_on:
+            - jobdb
+            - messagequeue
+        deploy:
+            replicas: 2
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.archimedes_services == true
+        networks:
+            - backend
 
+    archimedes_backend:
+        # core backend service. This is what jameswatt speaks to directly.
+        image: cae.driveline.gkn.com:5000/archimdedes-deployment/archimedes_backend
+        depends_on:
+            - peter
+            - ramanujan
+            - lineage
+        deploy:
+            replicas: 2
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.archimedes_services == true
+        networks:
+            - backend
+
+    jameswatt:
+        # User Interface Service
+        # This is an Apache httpd image which hosts the UI.
+        image: cae.driveline.gkn.com:5000/archimedes-deployment/jameswatt
+        depends_on:
+            - archimedes_backend
+        deploy:
+            replicas: 2
+            restart_policy:
+                condition: always
+            constraints:
+                - node.labels.archimedes_services == true
+        networks:
+            - frontend
+            - backend
+
+
+
+networks:
+    frontend:
+    backend:
