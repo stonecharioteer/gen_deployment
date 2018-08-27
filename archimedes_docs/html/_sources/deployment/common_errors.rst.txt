@@ -1,0 +1,5 @@
+Common Errors
+-----------------
+
+This document describes the common errors that I've faced while deploying the services in general.
+

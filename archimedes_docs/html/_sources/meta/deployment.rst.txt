@@ -1,0 +1,91 @@
+
+*************************
+Deployment & Extension
+*************************
+
+``Archimedes`` and its services are meant to be deployed across its machines via Docker-Swarm and Ansible. This will be configurable via
+a **single** script, and the corresponding commandline tools will help orchestrate the provisioning of nodes and
+additional services as and when they are built. To this end, the API reference document will detail how the service will be designed,
+as well as how to integrate additional features into it.
+
+
+Service Deployment & Description
+==================================
+
+Most of the services are developed to be packaged in a ``docker`` container. This helps maintain a constant environment during development
+and deployment. It also ensures isolation of the environment.
+
+Docker Swarm
+-------------
+
+Most services are launched using `Docker Swarms <https://docs.docker.com/get-started/part4/>`_ across `multiple hosts <https://docs.docker.com/network/overlay-standalone.swarm/>`_.
+
+.. admonition:: From the Docker Documentation
+
+    A swarm is a group of machines that are running Docker and joined into a cluster. After that has 
+    happened, you continue to run the Docker commands you’re used to, but now they are executed on 
+    a cluster by a swarm manager. The machines in a swarm can be physical or virtual. After joining a swarm,
+    they are referred to as nodes.
+
+    Swarm managers can use several strategies to run containers, such as “emptiest node” -- which fills
+    the least utilized machines with containers. Or “global”, which ensures that each machine gets
+    exactly one instance of the specified container. You instruct the swarm manager to use
+    these strategies in the Compose file, just like the one you have already been using.
+
+    Swarm managers are the only machines in a swarm that can execute your commands, or authorize 
+    other machines to join the swarm as workers. Workers are 
+    just there to provide capacity and do not have the authority to tell any other machine what 
+    it can and cannot do.
+
+    Up until now, you have been using Docker in a single-host mode on your local machine. But 
+    Docker also can be switched into swarm mode, and that’s what enables the use of swarms.
+    Enabling swarm mode instantly makes the current machine a swarm manager. From then on, 
+    Docker runs the commands you execute on the swarm you’re managing, rather than just on 
+    the current machine.
+
+The services which may be launched this way are designed to be interchangeable. These containers 
+do not **need** to run on a particular machine *per se*. Instead, focus is on having them 
+have multiple instances which are then provisioned across the ``Swarm`` with Docker's own 
+load-balancing mechanism.
+
+Single Script Launch
+---------------------
+
+As stated in the introduction, ``Archimedes`` is developed with **ease of installation, execution and use**
+in mind. So, to ease the **installation** and **execution**, ``Archimedes`` comes with the
+``eureka.sh`` deployment script. This script needs a ``configuration.yml`` file, one that lists IPs,
+server-roles, groups and other meta-data pertinent to the deployment. This script is a
+wrapper around `Ansible's <https://www.ansible.com>`_ scripts, and it is used similarly. 
+
+.. admonition:: Provisioning Software and Configuration Management
+
+    ``Archimedes`` uses `Ansible <https://docs.ansible.com/>`_ to orchestrate stuff around the network.
+
+The only prerequisites, as with Ansible itself, is that ``Python`` is installed and accessible
+on the path, ``ssh-server`` is running on all Linux machines, the ``ssh-keys`` provided are for
+the ``root`` accounts and IPs are configured properly in the absence of MAC-binding.
+
+``Eureka.sh`` performs the following steps:
+
+1. On **all** machines:
+    * Ensures the :abbr:`VCS (Version Control Software)` is installed and available on the path.
+#. On the Docker container server(s):
+    * Installs Docker, starts server.
+#. On Docker hosts:
+    * Ensures Docker is installed and all corresponding parameters (such as proxies and location of local container server) are set.
+    * Builds images.
+#. On Run servers:
+    1. With Graphics Cards:
+        * Ensures drivers are installed.
+        * Ensures that the environment is configured correctly.
+    #. Install software tagged with the machine type.
+    #. Configure environment so that the command line tools are accessible.
+
+.. todo::
+
+    Describe how the services are deployed, without much detail.
+
+.. todo::
+    Describe how client software will be provisioned.
+
+

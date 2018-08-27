@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.4. Deployment &amp; Extension &mdash; Archimedes SPDM 0.1-alpha documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/shifter.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.5. Directed Acyclic Graphs For CAE Process Map" href="dag.html" />
+    <link rel="prev" title="1.3. Components of Archimedes" href="components.html" />
+    <link href="../_static/nav-theme-override.css" rel="stylesheet" type="text/css">
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Archimedes SPDM
+          
+
+          
+            
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">1. Introduction: Why <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code>?</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="usecase.html">1.1. Simple Use Case Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html">1.2. Why Microservices?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#service-discovery">1.2.1. Service Discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#load-balancer">1.2.2. Load Balancer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#service-communication">1.2.3. Service Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#message-queue">1.2.4. Message Queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#planned-services">1.2.5. Planned Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#example-network-diagram">1.2.6. Example Network Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">1.3. Components of <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1.4. Deployment &amp; Extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#service-deployment-description">1.4.1. Service Deployment &amp; Description</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#docker-swarm">1.4.1.1. Docker Swarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#single-script-launch">1.4.1.2. Single Script Launch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dag.html">1.5. Directed Acyclic Graphs For CAE Process Map</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">2. Roadmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../roadmap/coordination.html">2.1. Coordination</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/index.html">3. Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/infrastructure.html">3.1. Archimedes Infrastructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/infrastructure.html#vsphere-virtual-machine-list-and-structure">3.1.1. vSphere Virtual Machine List and Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/common_errors.html">3.2. Common Errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">4. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/stack.html">4.1. Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/documentation.html">4.2. Documentation Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apis/index.html">5. APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">6. Pending Tasks</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Archimedes SPDM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">1. Introduction: Why <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code>?</a> &raquo;</li>
+        
+      <li>1.4. Deployment &amp; Extension</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/meta/deployment.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="dag.html" class="btn btn-neutral float-right" title="1.5. Directed Acyclic Graphs For CAE Process Map" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="components.html" class="btn btn-neutral" title="1.3. Components of Archimedes" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deployment-extension">
+<h1>1.4. Deployment &amp; Extension<a class="headerlink" href="#deployment-extension" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> and its services are meant to be deployed across its machines via Docker-Swarm and Ansible. This will be configurable via
+a <strong>single</strong> script, and the corresponding commandline tools will help orchestrate the provisioning of nodes and
+additional services as and when they are built. To this end, the API reference document will detail how the service will be designed,
+as well as how to integrate additional features into it.</p>
+<div class="section" id="service-deployment-description">
+<h2>1.4.1. Service Deployment &amp; Description<a class="headerlink" href="#service-deployment-description" title="Permalink to this headline">¶</a></h2>
+<p>Most of the services are developed to be packaged in a <code class="docutils literal notranslate"><span class="pre">docker</span></code> container. This helps maintain a constant environment during development
+and deployment. It also ensures isolation of the environment.</p>
+<div class="section" id="docker-swarm">
+<h3>1.4.1.1. Docker Swarm<a class="headerlink" href="#docker-swarm" title="Permalink to this headline">¶</a></h3>
+<p>Most services are launched using <a class="reference external" href="https://docs.docker.com/get-started/part4/">Docker Swarms</a> across <a class="reference external" href="https://docs.docker.com/network/overlay-standalone.swarm/">multiple hosts</a>.</p>
+<div class="admonition-from-the-docker-documentation admonition">
+<p class="first admonition-title">From the Docker Documentation</p>
+<p>A swarm is a group of machines that are running Docker and joined into a cluster. After that has
+happened, you continue to run the Docker commands you’re used to, but now they are executed on
+a cluster by a swarm manager. The machines in a swarm can be physical or virtual. After joining a swarm,
+they are referred to as nodes.</p>
+<p>Swarm managers can use several strategies to run containers, such as “emptiest node” – which fills
+the least utilized machines with containers. Or “global”, which ensures that each machine gets
+exactly one instance of the specified container. You instruct the swarm manager to use
+these strategies in the Compose file, just like the one you have already been using.</p>
+<p>Swarm managers are the only machines in a swarm that can execute your commands, or authorize
+other machines to join the swarm as workers. Workers are
+just there to provide capacity and do not have the authority to tell any other machine what
+it can and cannot do.</p>
+<p class="last">Up until now, you have been using Docker in a single-host mode on your local machine. But
+Docker also can be switched into swarm mode, and that’s what enables the use of swarms.
+Enabling swarm mode instantly makes the current machine a swarm manager. From then on,
+Docker runs the commands you execute on the swarm you’re managing, rather than just on
+the current machine.</p>
+</div>
+<p>The services which may be launched this way are designed to be interchangeable. These containers
+do not <strong>need</strong> to run on a particular machine <em>per se</em>. Instead, focus is on having them
+have multiple instances which are then provisioned across the <code class="docutils literal notranslate"><span class="pre">Swarm</span></code> with Docker’s own
+load-balancing mechanism.</p>
+</div>
+<div class="section" id="single-script-launch">
+<h3>1.4.1.2. Single Script Launch<a class="headerlink" href="#single-script-launch" title="Permalink to this headline">¶</a></h3>
+<p>As stated in the introduction, <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> is developed with <strong>ease of installation, execution and use</strong>
+in mind. So, to ease the <strong>installation</strong> and <strong>execution</strong>, <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> comes with the
+<code class="docutils literal notranslate"><span class="pre">eureka.sh</span></code> deployment script. This script needs a <code class="docutils literal notranslate"><span class="pre">configuration.yml</span></code> file, one that lists IPs,
+server-roles, groups and other meta-data pertinent to the deployment. This script is a
+wrapper around <a class="reference external" href="https://www.ansible.com">Ansible’s</a> scripts, and it is used similarly.</p>
+<div class="admonition-provisioning-software-and-configuration-management admonition">
+<p class="first admonition-title">Provisioning Software and Configuration Management</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> uses <a class="reference external" href="https://docs.ansible.com/">Ansible</a> to orchestrate stuff around the network.</p>
+</div>
+<p>The only prerequisites, as with Ansible itself, is that <code class="docutils literal notranslate"><span class="pre">Python</span></code> is installed and accessible
+on the path, <code class="docutils literal notranslate"><span class="pre">ssh-server</span></code> is running on all Linux machines, the <code class="docutils literal notranslate"><span class="pre">ssh-keys</span></code> provided are for
+the <code class="docutils literal notranslate"><span class="pre">root</span></code> accounts and IPs are configured properly in the absence of MAC-binding.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Eureka.sh</span></code> performs the following steps:</p>
+<ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>On <strong>all</strong> machines:</dt>
+<dd><ul class="first last">
+<li>Ensures the <abbr title="Version Control Software">VCS</abbr> is installed and available on the path.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>On the Docker container server(s):</dt>
+<dd><ul class="first last">
+<li>Installs Docker, starts server.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>On Docker hosts:</dt>
+<dd><ul class="first last">
+<li>Ensures Docker is installed and all corresponding parameters (such as proxies and location of local container server) are set.</li>
+<li>Builds images.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>On Run servers:</dt>
+<dd><ol class="first last arabic">
+<li><dl class="first docutils">
+<dt>With Graphics Cards:</dt>
+<dd><ul class="first last">
+<li>Ensures drivers are installed.</li>
+<li>Ensures that the environment is configured correctly.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Install software tagged with the machine type.</li>
+<li>Configure environment so that the command line tools are accessible.</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Describe how the services are deployed, without much detail.</p>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">Describe how client software will be provisioned.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dag.html" class="btn btn-neutral float-right" title="1.5. Directed Acyclic Graphs For CAE Process Map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="components.html" class="btn btn-neutral" title="1.3. Components of Archimedes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, GKN Driveline.
+      Last updated on Aug 23, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1-alpha',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+<style>
+    /* Sidebar header (and topbar for mobile) */
+
+    .wy-side-nav-search,
+    .wy-nav-top {
+        background: #497593;
+    }
+
+    .wy-nav-side {
+        background: #000000;
+    }
+</style>
+
+
+</body>
+</html>

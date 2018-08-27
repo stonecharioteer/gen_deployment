@@ -1,0 +1,63 @@
+
+
+Directed Acyclic Graphs For CAE Process Map
+--------------------------------------------
+
+:abbr:`DAGs (Directed Acyclic Graphs)` are a way of recording computational processes.
+
+.. admonition:: From Wikipedia
+    
+    Content from: `Directed Acyclic Graphs <https://en.wikipedia.org/wiki/Directed_acyclic_graph>`_
+
+    Directed acyclic graphs representations of partial orderings have many applications in scheduling for systems of tasks with ordering constraints.[29] An important class of problems of this type concern collections of objects that need to be updated, such as the cells of a spreadsheet after one of the cells has been changed, or the object files of a piece of computer software after its source code has been changed. In this context, a dependency graph is a graph that has a vertex for each object to be updated, and an edge connecting two objects whenever one of them needs to be updated earlier than the other. A cycle in this graph is called a circular dependency, and is generally not allowed, because there would be no way to consistently schedule the tasks involved in the cycle. Dependency graphs without circular dependencies form DAGs.[30]
+
+    For instance, when one cell of a spreadsheet changes, it is necessary to recalculate the values of other cells that depend directly or indirectly on the changed cell. For this problem, the tasks to be scheduled are the recalculations of the values of individual cells of the spreadsheet. Dependencies arise when an expression in one cell uses a value from another cell. In such a case, the value that is used must be recalculated earlier than the expression that uses it. Topologically ordering the dependency graph, and using this topological order to schedule the cell updates, allows the whole spreadsheet to be updated with only a single evaluation per cell.[31] Similar problems of task ordering arise in makefiles for program compilation[31] and instruction scheduling for low-level computer program optimization.[32]
+
+    A somewhat different DAG-based formulation of scheduling constraints is used by the program evaluation and review technique (PERT), a method for management of large human projects that was one of the first applications of DAGs. In this method, the vertices of a DAG represent milestones of a project rather than specific tasks to be performed. Instead, a task or activity is represented by an edge of a DAG, connecting two milestones that mark the beginning and completion of the task. Each such edge is labeled with an estimate for the amount of time that it will take a team of workers to perform the task. The longest path in this DAG represents the critical path of the project, the one that controls the total time for the project. Individual milestones can be scheduled according to the lengths of the longest paths ending at their vertices.[33]
+
+``Archimedes`` uses :abbr:`DAGs (Directed Acyclic Graphs)` for recording the process flow.
+In essence, the DAG file is **everything**. It is the self-documenting work instruction for the 
+system, the execution file, as well as the historical record for how the process has evolved.
+
+Here's an example DAG, with directives, to illustrate what one looks like:
+
+.. literalinclude:: sample-dag.yml
+    :language: yaml
+    :linenos:
+
+.. todo::
+
+    Illustrate what the above DAG will look like in a flowchart.
+
+However, the main reason we want to record the flow for data is to analyse and record ``Data Provenance``.
+In the CAE world, `data provenance <https://en.wikipedia.org/wiki/Data_lineage>`_ is important because there needs to exist a papertrail of analyses in many
+environments, either out of conventional requirements, which could stem from paranoid, or just regulatory 
+requirements.
+
+A papertrail for analysis data involves several factors. Some of them are:
+
+1. Who performed the analysis and when?
+#. Where did the input data for the overall problem statement originate from?
+#. How was the preprocessing carried out?
+#. What work instructions were followed?
+#. How does one replicate the analysis results?
+#. What system-specific information is important to the analysis? (examples:
+`errors due to machine epsilon <https://en.wikipedia.org/wiki/Machine_epsilon>`, variations
+due to GPU drivers, or due to solver versions or configurations.
+#. What steps were automated, and what was manual?
+#. What checks were instated as a result of this analysis into subsequent processes, and what needs 
+to be modified if there was an issue with the way this parent analysis was carried out?
+
+Looking at questions such as these, it is important to notice that many of these are mostly to replicate
+analyses results. The reasons one would want to replicate results are varied. Some of them are:
+
+1. Validation of a new machine configuration with a standard analysis.
+#. Validation of a new software version or configuration.
+#. Replication of results because the large results files were not retained beyond the agreed-upon
+retention period.
+#. Replication of the results to validate an old analysis to understand if it was carried out in 
+a standard manner
+#. Training a new employee to understand how an older task was carried out.
+
+With a DAG/provenance based outlook, it is easy to keep track of files, how analysis evolves with time,
+and to just understand what files are related to each other when provisioning a search facility.

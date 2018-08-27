@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Introduction: Why Archimedes? &mdash; Archimedes SPDM 0.1-alpha documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/shifter.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.1. Simple Use Case Example" href="usecase.html" />
+    <link rel="prev" title="The Archimedes Simulation Process &amp; Data Management System" href="../index.html" />
+    <link href="../_static/nav-theme-override.css" rel="stylesheet" type="text/css">
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Archimedes SPDM
+          
+
+          
+            
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Introduction: Why <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code>?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usecase.html">1.1. Simple Use Case Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html">1.2. Why Microservices?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#service-discovery">1.2.1. Service Discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#load-balancer">1.2.2. Load Balancer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#service-communication">1.2.3. Service Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#message-queue">1.2.4. Message Queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#planned-services">1.2.5. Planned Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#example-network-diagram">1.2.6. Example Network Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">1.3. Components of <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">1.4. Deployment &amp; Extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment.html#service-deployment-description">1.4.1. Service Deployment &amp; Description</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="deployment.html#docker-swarm">1.4.1.1. Docker Swarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deployment.html#single-script-launch">1.4.1.2. Single Script Launch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dag.html">1.5. Directed Acyclic Graphs For CAE Process Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis_flow.html">1.6. Analysis Work Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">2. Roadmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../roadmap/coordination.html">2.1. Coordination</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/index.html">3. Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/infrastructure.html">3.1. Archimedes Infrastructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/infrastructure.html#vsphere-virtual-machine-list-and-structure">3.1.1. vSphere Virtual Machine List and Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/common_errors.html">3.2. Common Errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">4. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/stack.html">4.1. Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/documentation.html">4.2. Documentation Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apis/index.html">5. APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">6. Pending Tasks</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Archimedes SPDM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>1. Introduction: Why <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code>?</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/meta/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="usecase.html" class="btn btn-neutral float-right" title="1.1. Simple Use Case Example" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="The Archimedes Simulation Process &amp; Data Management System" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction-why-archimedes">
+<h1>1. Introduction: Why <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code>?<a class="headerlink" href="#introduction-why-archimedes" title="Permalink to this headline">¶</a></h1>
+<p>Mechanical Engineering companies deal with a large volume of data. However, compared to retail, this
+data is fundamentally different. If one were to create an analogy between a retail company where one
+set of data could be everything related to a “sale”, an Engineering company’s data is usually never
+similar in volume by number. Instead, one set of data is usually related to a customer request, which
+could be a standard or adhoc request for numerical analysis on a component. This data set could be anywhere
+between 1 GB to 10 TB in filesize, and there could be a few thousand such tasks every year.</p>
+<p>Conventional methodology at Engineering companies is mostly manual when it comes to the analysis
+process. Most companies follow standard processes, standard in the sense that they define. However, it is
+easily observed that there is a technological gap between the processes at an Engineering company when it
+comes to data management when compared to an e-retail company.</p>
+<p>Consider this situation for example:</p>
+<div class="figure" id="id1">
+<div><svg height="655" viewBox="0 0 716 655" width="716" xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2" />
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="44" y="41" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="160" x="371" y="41" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="213" y="41" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="561" y="41" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="561" y="116" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="33" y="266" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="213" y="266" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="213" y="341" />
+  <rect fill="rgb(0,0,0)" height="60" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="213" y="416" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="213" y="511" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="387" y="191" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="64" x="76" y="586" />
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="128" x="41" y="35" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="75" x="105.5" y="62">Customer Input</text>
+  <ellipse cx="41" cy="35" fill="pink" rx="12.0" ry="12.0" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="6" x="41.0" y="41">1</text>
+  <rect fill="rgb(135,206,235)" height="40" stroke="rgb(0,0,0)" width="160" x="368" y="35" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="77" x="448.5" y="54">Computer Aided</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="56" x="448.0" y="69">Engineering</text>
+  <ellipse cx="368" cy="35" fill="pink" rx="12.0" ry="12.0" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="6" x="368.0" y="41">3</text>
+  <rect fill="rgb(255,255,0)" height="40" stroke="rgb(0,0,0)" width="128" x="210" y="35" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="46" x="274.0" y="62">Engineers</text>
+  <ellipse cx="210" cy="35" fill="pink" rx="12.0" ry="12.0" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="6" x="210.0" y="41">2</text>
+  <rect fill="rgb(194,194,194)" height="40" stroke="rgb(0,0,0)" width="128" x="558" y="35" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="34" x="622.0" y="61">Servers</text>
+  <rect fill="rgb(194,194,194)" height="40" stroke="rgb(0,0,0)" width="128" x="558" y="110" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="74" x="622.0" y="136">Local Machines</text>
+  <rect fill="rgb(255,0,0)" height="40" stroke="rgb(0,0,0)" stroke-dasharray="2" width="150" x="30" y="260" />
+  <text fill="rgb(255,255,255)" font-family="sans-serif" font-size="14" font-style="normal" font-weight="normal" text-anchor="middle" textLength="119" x="105.5" y="289">Engineering Data</text>
+  <ellipse cx="30" cy="260" fill="pink" rx="12.0" ry="12.0" stroke="rgb(0,0,0)" />
+  <text fill="rgb(255,255,255)" font-family="sans-serif" font-size="14" font-style="normal" font-weight="normal" text-anchor="middle" textLength="8" x="30.0" y="268">4</text>
+  <rect fill="rgb(194,194,194)" height="40" stroke="rgb(0,0,0)" width="128" x="210" y="260" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="68" x="274.0" y="287">Search Engine</text>
+  <rect fill="rgb(194,194,194)" height="40" stroke="rgb(0,0,0)" width="128" x="210" y="335" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="76" x="274.0" y="361">Version Control</text>
+  <rect fill="rgb(194,194,194)" height="60" stroke="rgb(0,0,0)" width="128" x="210" y="410" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="107" x="274.5" y="439">Design of Experiments</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="85" x="274.5" y="454">Machine Learning</text>
+  <rect fill="rgb(135,206,235)" height="40" stroke="rgb(0,0,0)" width="128" x="210" y="505" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="37" x="274.5" y="532">Reports</text>
+  <ellipse cx="210" cy="505" fill="pink" rx="12.0" ry="12.0" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="6" x="210.0" y="511">5</text>
+  <rect fill="rgb(194,194,194)" height="40" stroke="rgb(0,0,0)" width="128" x="384" y="185" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="87" x="448.5" y="211">Work Instructions</text>
+  <rect fill="rgb(194,194,194)" height="40" stroke="rgb(0,0,0)" width="64" x="73" y="580" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="37" x="105.5" y="606">licenses</text>
+  <path d="M 169 55 L 202 55" fill="none" stroke="rgb(0,0,255)" />
+  <polygon fill="rgb(0,0,255)" points="209,55 202,51 202,59 209,55" stroke="rgb(0,0,255)" />
+  <path d="M 528 55 L 543 55" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 543 55 L 543 130" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 543 130 L 550 130" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <polygon fill="rgb(0,0,255)" points="557,130 550,126 550,134 557,130" stroke="rgb(0,0,255)" />
+  <path d="M 528 55 L 550 55" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <polygon fill="rgb(0,0,255)" points="557,55 550,51 550,59 557,55" stroke="rgb(0,0,255)" />
+  <path d="M 338 55 L 353 55" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 55 L 353 205" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 205 L 357.0 205" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 357.0 205.0 A4.0,4.0 0 0 1 365.0 205.0" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 365.0 205 L 376 205" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="383,205 376,201 376,209 383,205" stroke="rgb(0,0,0)" />
+  <path d="M 338 55 L 360 55" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <polygon fill="rgb(0,0,255)" points="367,55 360,51 360,59 367,55" stroke="rgb(0,0,255)" />
+  <path d="M 686 55 L 701 55" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 701 55 L 701 243" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 105 243 L 191.0 243" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 191.0 243.0 A4.0,4.0 0 0 1 199.0 243.0" fill="none" stroke="rgb(0,0,255)" />
+  <path d="M 199.0 243 L 357.0 243" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 357.0 243.0 A4.0,4.0 0 0 1 365.0 243.0" fill="none" stroke="rgb(0,0,255)" />
+  <path d="M 365.0 243 L 701 243" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 105 243 L 105 252" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <polygon fill="rgb(0,0,255)" points="105,259 101,252 109,252 105,259" stroke="rgb(0,0,255)" />
+  <path d="M 622 150 L 622 243" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 105 243 L 191.0 243" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 191.0 243.0 A4.0,4.0 0 0 1 199.0 243.0" fill="none" stroke="rgb(0,0,255)" />
+  <path d="M 199.0 243 L 357.0 243" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 357.0 243.0 A4.0,4.0 0 0 1 365.0 243.0" fill="none" stroke="rgb(0,0,255)" />
+  <path d="M 365.0 243 L 622 243" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 105 243 L 105 252" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <polygon fill="rgb(0,0,255)" points="105,259 101,252 109,252 105,259" stroke="rgb(0,0,255)" />
+  <path d="M 180 280 L 195 280" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2" />
+  <path d="M 195 280 L 195 242" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2" />
+  <path d="M 195 242 L 361 242" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2" />
+  <path d="M 361 242 L 361 205" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2" />
+  <path d="M 361 205 L 376 205" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2" />
+  <polygon fill="rgb(0,0,0)" points="383,205 376,201 376,209 383,205" stroke="rgb(0,0,0)" />
+  <path d="M 180 280 L 202 280" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="209,280 202,276 202,284 209,280" stroke="rgb(0,0,0)" />
+  <path d="M 180 280 L 195 280" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 195 280 L 195 355" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 195 355 L 202 355" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="209,355 202,351 202,359 209,355" stroke="rgb(0,0,0)" />
+  <path d="M 180 280 L 195 280" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 195 280 L 195 440" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 195 440 L 202 440" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="209,440 202,436 202,444 209,440" stroke="rgb(0,0,0)" />
+  <path d="M 180 280 L 195 280" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 195 280 L 195 525" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <path d="M 195 525 L 202 525" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <polygon fill="rgb(0,0,255)" points="209,525 202,521 202,529 209,525" stroke="rgb(0,0,255)" />
+  <path d="M 448 185 L 448 83" fill="none" stroke="rgb(0,0,255)" stroke-width="3" />
+  <polygon fill="rgb(0,0,255)" points="448,76 444,83 452,83 448,76" stroke="rgb(0,0,255)" />
+  <path d="M 338 440 L 361 440" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 361 440 L 361 55" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 360 55 L 361 55" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="367,55 360,51 360,59 367,55" stroke="rgb(0,0,0)" />
+  <path d="M 137 600 L 361 600" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 361 600 L 361 55" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 360 55 L 361 55" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="367,55 360,51 360,59 367,55" stroke="rgb(0,0,0)" />
+</svg>
+</div>
+<p class="caption"><span class="caption-text">Typical Analysis Scenario</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Such a scenario would be difficult to set up in an environment which has several different varieties of
+computers, servers and users. It is such, not for lack of tries. Most certainly not. Companies have constantly
+put their efforts into setting up such a system, and they have come to some manner of success over the years.
+Some companies choose to use readymade solutions, and there are caveats therein.</p>
+<p>Version control, automated testing, deployment or containerization isn’t usually found at mechanical
+engineering companies. It is not for lack of knowledge, but mostly because engineering companies aren’t
+<em>usually</em> focussed on their software. They’re focussed in delivering a product that doesn’t fail.</p>
+<p>This demands an analysis, or simulation process &amp; data management system that is robust. Many CAE and CAD software
+vendors are coming up with solutions, but most of them are still not widely used. The industry is plagued with
+closed-source or limited-support principles, and this causes the customer to usually stop using the tools because
+support is slow, or even the smallest request is usually never free. In addition, the software vendors usually
+come up with certain requirements that cannot easily be met, either related to hardware or software.
+Their deployment is often difficult. To add to the problem, most engineering companies are paranoid about accepting
+open source technologies, concerned about the long term support and sustenance.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> hopes to solve that purpose. It is a <cite>Simulation Process Data Management System</cite> that will
+scale horizontally, that will be easy to use, and can be plugged into <strong>any</strong> pre-existing situation.
+It is designed to be deployable with ease, intuitive to use, and can be used on any platform.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> is designed so that if a component must be replaced, so be it, but it should not affect the rest
+of the system. It acknowledges that this industry is used to slow change, and brings in an idealogy that is
+designed around having a robust communication methodology between the old and the new.</p>
+<p>The way we manage this is through microservices, dedicated to keeping <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> alive.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Provide more usecase examples. Preferably illustrated.</p>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">More About Archimedes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usecase.html">1.1. Simple Use Case Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microservices.html">1.2. Why Microservices?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#service-discovery">1.2.1. Service Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#load-balancer">1.2.2. Load Balancer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#service-communication">1.2.3. Service Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#message-queue">1.2.4. Message Queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#planned-services">1.2.5. Planned Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#example-network-diagram">1.2.6. Example Network Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">1.3. Components of <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">1.4. Deployment &amp; Extension</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#service-deployment-description">1.4.1. Service Deployment &amp; Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment.html#docker-swarm">1.4.1.1. Docker Swarm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment.html#single-script-launch">1.4.1.2. Single Script Launch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dag.html">1.5. Directed Acyclic Graphs For CAE Process Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis_flow.html">1.6. Analysis Work Flow</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usecase.html" class="btn btn-neutral float-right" title="1.1. Simple Use Case Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="The Archimedes Simulation Process &amp; Data Management System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, GKN Driveline.
+      Last updated on Aug 24, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1-alpha',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+<style>
+    /* Sidebar header (and topbar for mobile) */
+
+    .wy-side-nav-search,
+    .wy-nav-top {
+        background: #497593;
+    }
+
+    .wy-nav-side {
+        background: #000000;
+    }
+</style>
+
+
+</body>
+</html>

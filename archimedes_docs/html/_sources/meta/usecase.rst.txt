@@ -1,0 +1,116 @@
+
+Simple Use Case Example
+************************
+
+A customer (internal or external), comes to an Analysis engineer and asks him/her to perform a type of analysis. The engineer
+then has to prepare the input statement in a format that is acceptible to the software he/she is dealing with and then submit
+said input files to the solver. The solver returns to the user with the results, which he/she then must prepare in a format
+that the customer will appreciate. The customer may come back with a query, and the engineer must resolve said query in time.
+
+In simpler terms:
+
+.. actdiag::
+      :caption: Analysis Flow for Scenario #1
+
+      actdiag analysis {
+        node_width=150
+
+        input -> receive -> preprocessing -> run -> postprocessing -> report
+        report -> acknowledge -> query -> correction -> closure
+
+        lane customer {
+          label = "Customer";
+          input [label ="Create Request"];
+          acknowledge [label = "Receive Report"];
+          query [label = "Raise Question"]
+          closure [label = "Accept Solution"];
+        }
+
+        lane engineer {
+          label = "Engineer"
+          receive [label = "Analyse Request\nStatement"];
+          preprocessing [label = "Preprocess\nInput Files"];
+          postprocessing [label = "Postprocess\nOutput Data"];
+          report [label = "Prepare Report\nFile"];
+          correction [label = "Resolve\nQueries"];
+        }
+        lane cluster {
+          label = "CAE System"
+          run [label = "Run Solvers on Local\nMachine or Server",height=60]
+        }
+      }
+
+Assume for a moment that the customer is satisfied with this solution, and doesn't ask for any thing else.
+With such a simple request, it is not uncommon to already deal with 1TB of data. This is usual for the scenario, in fact.
+
+Now, add a complexity to this problem statement. Assume that the customer came back with some information, realizing that the report given
+by the engineer is insufficient because of the lack of data. Now, the engineer must adjust his/her inputs, and redo the analysis. This
+adds to the problem. The additional data could be something simple in that the customer did not explain how the component was being
+really used in the field. Or it could be that the customer said that the material was going to be changed. It could also be that the customer
+changed the loading pattern and asked for the engineer to rerun the analysis.
+
+
+.. todo::
+    Move diagram dotcode to its own file.
+
+
+.. actdiag::
+      :caption: Analysis Flow for Scenario #2
+
+      actdiag analysis {
+        node_width=150
+
+        input -> receive -> preprocessing
+        preprocessing -> run -> postprocessing -> report 
+        report -> acknowledge -> query -> correction
+        correction -> input_2 -> receive_2
+        receive_2 -> preprocessing_2 -> run_2
+        run_2 -> postprocessing_2 -> report_2 -> closure
+
+        lane customer {
+          label = "Customer";
+          input [label ="Create Request"];
+          input_2 [label ="Add additional data"];
+          acknowledge [label = "Receive Report"];
+          closure [label = "Accept Solution"];
+        }
+
+        lane engineer {
+          label = "Engineer"
+          receive [label = "Analyse Request\nStatement"];
+          receive_2 [label = "Add New Data\nTo Request Statement"];
+          preprocessing [label = "Preprocess\nInput Files"];
+          preprocessing_2 [label = "Preprocess\nInput Files"];
+          postprocessing [label = "Postprocess\nOutput Data"];
+          postprocessing_2 [label = "Postprocess\nOutput Data"];
+          correction [label = "Resolve\nQueries"];
+          report [label = "Prepare Report\nFile"];
+          report_2 [label = "Prepare New Report\nFile"];
+        }
+        lane cluster {
+          label = "CAE System"
+          run [label = "Run Solvers on Local\nMachine or Server",height=60]
+          run_2 [label = "Run Solvers on Local\nMachine or Server",height=60]
+        }
+      }
+
+Imagine, for an instant, that the customer's request is something that is pretty standard and common. How are we to record this? 
+
+With a system of practise that is at once archaic and inflexible, recording activity that is constantly 
+changing is infeasible. Think about it for a moment: *you have a system that hates change, and you want to induce 
+and monitor change therein!* However, this scenario **is** standard practise for the industry.
+
+Many vendor-provided SPDM solutions seek to solve this problem, however, they are oftentimes developed for a very generic usecase,
+and the vendor assumes that the company would be willing to change their data center setup to suit their software development decisions.
+
+This is the major caveat of existing SPDM systems. Asking companies to greatly change their ways of working to suit their design is a 
+fallacy. No company would be willing to. If it did, it would require extreme discipline and unnerving courage.
+
+``Archimedes`` hopes to bring in **existing** ways of working into its fold. Does half your team use Jira for problem tracking 
+while the other half uses MS Excel? Then ``Archimedes`` can be used. Do your engineers prefer Windows machines and is asking them to
+learn ``qsub`` or ``qstat`` an additional burden? Then ``Archimedes`` is for you.
+
+``Archimedes`` is for everyone who hopes to improve their analysis process and get a plethora of benefits, not through drastic change, but through
+subtle yet robust change.
+
+This section of the documentation is largely a pitch, to help new users understand why they'd need ``Archimedes``, and how it can help them.

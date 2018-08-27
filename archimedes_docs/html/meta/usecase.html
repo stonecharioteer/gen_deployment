@@ -1,0 +1,547 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.1. Simple Use Case Example &mdash; Archimedes SPDM 0.1-alpha documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/shifter.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.2. Why Microservices?" href="microservices.html" />
+    <link rel="prev" title="1. Introduction: Why Archimedes?" href="index.html" />
+    <link href="../_static/nav-theme-override.css" rel="stylesheet" type="text/css">
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Archimedes SPDM
+          
+
+          
+            
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">1. Introduction: Why <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code>?</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1.1. Simple Use Case Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html">1.2. Why Microservices?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#service-discovery">1.2.1. Service Discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#load-balancer">1.2.2. Load Balancer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#service-communication">1.2.3. Service Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#message-queue">1.2.4. Message Queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#planned-services">1.2.5. Planned Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#example-network-diagram">1.2.6. Example Network Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">1.3. Components of <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">1.4. Deployment &amp; Extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment.html#service-deployment-description">1.4.1. Service Deployment &amp; Description</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="deployment.html#docker-swarm">1.4.1.1. Docker Swarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deployment.html#single-script-launch">1.4.1.2. Single Script Launch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dag.html">1.5. Directed Acyclic Graphs For CAE Process Map</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">2. Roadmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../roadmap/coordination.html">2.1. Coordination</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/index.html">3. Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/infrastructure.html">3.1. Archimedes Infrastructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/infrastructure.html#dllohsr250">3.1.1. dllohsr250</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/infrastructure.html#dllohsr251">3.1.2. dllohsr251</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">4. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/stack.html">4.1. Tech Stack</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apis/index.html">5. APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">6. Pending Tasks</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Archimedes SPDM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">1. Introduction: Why <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code>?</a> &raquo;</li>
+        
+      <li>1.1. Simple Use Case Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/meta/usecase.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="microservices.html" class="btn btn-neutral float-right" title="1.2. Why Microservices?" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="1. Introduction: Why Archimedes?" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="simple-use-case-example">
+<h1>1.1. Simple Use Case Example<a class="headerlink" href="#simple-use-case-example" title="Permalink to this headline">¶</a></h1>
+<p>A customer (internal or external), comes to an Analysis engineer and asks him/her to perform a type of analysis. The engineer
+then has to prepare the input statement in a format that is acceptible to the software he/she is dealing with and then submit
+said input files to the solver. The solver returns to the user with the results, which he/she then must prepare in a format
+that the customer will appreciate. The customer may come back with a query, and the engineer must resolve said query in time.</p>
+<p>In simpler terms:</p>
+<div class="figure" id="id1">
+<div><svg height="940" viewBox="0 0 706 940" width="706" xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2" />
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="67" y="126" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="206" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="286" />
+  <rect fill="rgb(0,0,0)" height="60" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="495" y="366" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="466" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="546" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="67" y="626" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="67" y="706" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="786" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="67" y="866" />
+  <rect fill="#ffff99" height="62" stroke="#ffff99" width="214" x="32" y="38" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="51" x="139.5" y="75">Customer</text>
+  <rect fill="#ffff99" height="62" stroke="#ffff99" width="214" x="246" y="38" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="48" x="353.0" y="76">Engineer</text>
+  <rect fill="#ffff99" height="62" stroke="#ffff99" width="214" x="460" y="38" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="63" x="567.5" y="76">CAE System</text>
+  <rect fill="none" height="882" stroke="gray" width="642" x="32" y="38" />
+  <path d="M 32 100 L 674 100" fill="none" stroke="gray" />
+  <path d="M 246 38 L 246 920" fill="none" stroke="gray" />
+  <path d="M 460 38 L 460 920" fill="none" stroke="gray" />
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="64" y="120" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="80" x="139.0" y="147">Create Request</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="200" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="88" x="353.0" y="220">Analyse Request</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="54" x="353.0" y="234">Statement</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="280" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="58" x="353.0" y="299">Preprocess</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="57" x="353.5" y="315">Input Files</text>
+  <rect fill="rgb(255,255,255)" height="60" stroke="rgb(0,0,0)" width="150" x="492" y="360" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="112" x="567.0" y="389">Run Solvers on Local</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="97" x="567.5" y="403">Machine or Server</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="460" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="63" x="353.5" y="479">Postprocess</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="64" x="353.0" y="495">Output Data</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="540" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="83" x="353.5" y="560">Prepare Report</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="20" x="353.0" y="574">File</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="64" y="620" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="82" x="139.0" y="647">Receive Report</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="64" y="700" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="80" x="139.0" y="727">Raise Question</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="780" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="42" x="353.0" y="798">Resolve</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="41" x="353.5" y="814">Queries</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="64" y="860" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="84" x="139.0" y="887">Accept Solution</text>
+  <path d="M 139 160 L 139 180" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 180 L 353 180" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 180 L 353 192" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,199 349,192 357,192 353,199" stroke="rgb(0,0,0)" />
+  <path d="M 353 240 L 353 272" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,279 349,272 357,272 353,279" stroke="rgb(0,0,0)" />
+  <path d="M 353 320 L 353 340" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 340 L 567 340" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 567 340 L 567 352" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="567,359 563,352 571,352 567,359" stroke="rgb(0,0,0)" />
+  <path d="M 567 420 L 567 440" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 440 L 567 440" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 440 L 353 452" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,459 349,452 357,452 353,459" stroke="rgb(0,0,0)" />
+  <path d="M 353 500 L 353 532" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,539 349,532 357,532 353,539" stroke="rgb(0,0,0)" />
+  <path d="M 353 580 L 353 600" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 600 L 353 600" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 600 L 139 612" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="139,619 135,612 143,612 139,619" stroke="rgb(0,0,0)" />
+  <path d="M 139 660 L 139 692" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="139,699 135,692 143,692 139,699" stroke="rgb(0,0,0)" />
+  <path d="M 139 740 L 139 760" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 760 L 353 760" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 760 L 353 772" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,779 349,772 357,772 353,779" stroke="rgb(0,0,0)" />
+  <path d="M 353 820 L 353 840" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 840 L 353 840" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 840 L 139 852" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="139,859 135,852 143,852 139,859" stroke="rgb(0,0,0)" />
+</svg>
+</div>
+<p class="caption"><span class="caption-text">Analysis Flow for Scenario #1</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Assume for a moment that the customer is satisfied with this solution, and doesn’t ask for any thing else.
+With such a simple request, it is not uncommon to already deal with 1TB of data. This is usual for the scenario, in fact.</p>
+<p>Now, add a complexity to this problem statement. Assume that the customer came back with some information, realizing that the report given
+by the engineer is insufficient because of the lack of data. Now, the engineer must adjust his/her inputs, and redo the analysis. This
+adds to the problem. The additional data could be something simple in that the customer did not explain how the component was being
+really used in the field. Or it could be that the customer said that the material was going to be changed. It could also be that the customer
+changed the loading pattern and asked for the engineer to rerun the analysis.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Move diagram dotcode to its own file.</p>
+</div>
+<div class="figure" id="id2">
+<div><svg height="1440" viewBox="0 0 706 1440" width="706" xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2" />
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="67" y="126" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="206" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="286" />
+  <rect fill="rgb(0,0,0)" height="60" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="495" y="366" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="466" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="546" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="67" y="626" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="67" y="706" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="786" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="67" y="866" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="946" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="1026" />
+  <rect fill="rgb(0,0,0)" height="60" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="495" y="1106" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="1206" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="281" y="1286" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="150" x="67" y="1366" />
+  <rect fill="#ffff99" height="62" stroke="#ffff99" width="214" x="32" y="38" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="51" x="139.5" y="75">Customer</text>
+  <rect fill="#ffff99" height="62" stroke="#ffff99" width="214" x="246" y="38" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="48" x="353.0" y="76">Engineer</text>
+  <rect fill="#ffff99" height="62" stroke="#ffff99" width="214" x="460" y="38" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="63" x="567.5" y="76">CAE System</text>
+  <rect fill="none" height="1382" stroke="gray" width="642" x="32" y="38" />
+  <path d="M 32 100 L 674 100" fill="none" stroke="gray" />
+  <path d="M 246 38 L 246 1420" fill="none" stroke="gray" />
+  <path d="M 460 38 L 460 1420" fill="none" stroke="gray" />
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="64" y="120" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="80" x="139.0" y="147">Create Request</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="200" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="88" x="353.0" y="220">Analyse Request</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="54" x="353.0" y="234">Statement</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="280" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="58" x="353.0" y="299">Preprocess</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="57" x="353.5" y="315">Input Files</text>
+  <rect fill="rgb(255,255,255)" height="60" stroke="rgb(0,0,0)" width="150" x="492" y="360" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="112" x="567.0" y="389">Run Solvers on Local</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="97" x="567.5" y="403">Machine or Server</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="460" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="63" x="353.5" y="479">Postprocess</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="64" x="353.0" y="495">Output Data</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="540" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="83" x="353.5" y="560">Prepare Report</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="20" x="353.0" y="574">File</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="64" y="620" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="82" x="139.0" y="647">Receive Report</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="64" y="700" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="30" x="139.0" y="727">query</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="780" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="42" x="353.0" y="798">Resolve</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="41" x="353.5" y="814">Queries</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="64" y="860" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="107" x="139.5" y="886">Add additional data</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="940" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="75" x="353.5" y="958">Add New Data</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="116" x="353.0" y="974">To Request Statement</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="1020" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="58" x="353.0" y="1039">Preprocess</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="57" x="353.5" y="1055">Input Files</text>
+  <rect fill="rgb(255,255,255)" height="60" stroke="rgb(0,0,0)" width="150" x="492" y="1100" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="112" x="567.0" y="1129">Run Solvers on Local</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="97" x="567.5" y="1143">Machine or Server</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="1200" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="63" x="353.5" y="1219">Postprocess</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="64" x="353.0" y="1235">Output Data</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="278" y="1280" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="109" x="353.5" y="1300">Prepare New Report</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="20" x="353.0" y="1314">File</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="150" x="64" y="1360" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="84" x="139.0" y="1387">Accept Solution</text>
+  <path d="M 139 160 L 139 180" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 180 L 353 180" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 180 L 353 192" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,199 349,192 357,192 353,199" stroke="rgb(0,0,0)" />
+  <path d="M 353 240 L 353 272" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,279 349,272 357,272 353,279" stroke="rgb(0,0,0)" />
+  <path d="M 353 320 L 353 340" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 340 L 567 340" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 567 340 L 567 352" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="567,359 563,352 571,352 567,359" stroke="rgb(0,0,0)" />
+  <path d="M 567 420 L 567 440" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 440 L 567 440" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 440 L 353 452" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,459 349,452 357,452 353,459" stroke="rgb(0,0,0)" />
+  <path d="M 353 500 L 353 532" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,539 349,532 357,532 353,539" stroke="rgb(0,0,0)" />
+  <path d="M 353 580 L 353 600" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 600 L 353 600" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 600 L 139 612" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="139,619 135,612 143,612 139,619" stroke="rgb(0,0,0)" />
+  <path d="M 139 660 L 139 692" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="139,699 135,692 143,692 139,699" stroke="rgb(0,0,0)" />
+  <path d="M 139 740 L 139 760" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 760 L 353 760" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 760 L 353 772" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,779 349,772 357,772 353,779" stroke="rgb(0,0,0)" />
+  <path d="M 353 820 L 353 840" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 840 L 353 840" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 840 L 139 852" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="139,859 135,852 143,852 139,859" stroke="rgb(0,0,0)" />
+  <path d="M 139 900 L 139 920" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 920 L 353 920" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 920 L 353 932" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,939 349,932 357,932 353,939" stroke="rgb(0,0,0)" />
+  <path d="M 353 980 L 353 1012" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,1019 349,1012 357,1012 353,1019" stroke="rgb(0,0,0)" />
+  <path d="M 353 1060 L 353 1080" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 1080 L 567 1080" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 567 1080 L 567 1092" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="567,1099 563,1092 571,1092 567,1099" stroke="rgb(0,0,0)" />
+  <path d="M 567 1160 L 567 1180" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 1180 L 567 1180" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 353 1180 L 353 1192" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,1199 349,1192 357,1192 353,1199" stroke="rgb(0,0,0)" />
+  <path d="M 353 1240 L 353 1272" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="353,1279 349,1272 357,1272 353,1279" stroke="rgb(0,0,0)" />
+  <path d="M 353 1320 L 353 1340" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 1340 L 353 1340" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 139 1340 L 139 1352" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="139,1359 135,1352 143,1352 139,1359" stroke="rgb(0,0,0)" />
+</svg>
+</div>
+<p class="caption"><span class="caption-text">Analysis Flow for Scenario #2</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>Imagine, for an instant, that the customer’s request is something that is pretty standard and common. How are we to record this?</p>
+<p>With a system of practise that is at once archaic and inflexible, recording activity that is constantly
+changing is infeasible. Think about it for a moment: <em>you have a system that hates change, and you want to induce
+and monitor change therein!</em> However, this scenario <strong>is</strong> standard practise for the industry.</p>
+<p>Many vendor-provided SPDM solutions seek to solve this problem, however, they are oftentimes developed for a very generic usecase,
+and the vendor assumes that the company would be willing to change their data center setup to suit their software development decisions.</p>
+<p>This is the major caveat of existing SPDM systems. Asking companies to greatly change their ways of working to suit their design is a
+fallacy. No company would be willing to. If it did, it would require extreme discipline and unnerving courage.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> hopes to bring in <strong>existing</strong> ways of working into its fold. Does half your team use Jira for problem tracking
+while the other half uses MS Excel? Then <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> can be used. Do your engineers prefer Windows machines and is asking them to
+learn <code class="docutils literal notranslate"><span class="pre">qsub</span></code> or <code class="docutils literal notranslate"><span class="pre">qstat</span></code> an additional burden? Then <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> is for you.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Archimedes</span></code> is for everyone who hopes to improve their analysis process and get a plethora of benefits, not through drastic change, but through
+subtle yet robust change.</p>
+<p>This section of the documentation is largely a pitch, to help new users understand why they’d need <code class="docutils literal notranslate"><span class="pre">Archimedes</span></code>, and how it can help them.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="microservices.html" class="btn btn-neutral float-right" title="1.2. Why Microservices?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="1. Introduction: Why Archimedes?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, GKN Driveline.
+      Last updated on Aug 21, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1-alpha',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+<style>
+    /* Sidebar header (and topbar for mobile) */
+
+    .wy-side-nav-search,
+    .wy-nav-top {
+        background: #497593;
+    }
+
+    .wy-nav-side {
+        background: #000000;
+    }
+</style>
+
+
+</body>
+</html>
