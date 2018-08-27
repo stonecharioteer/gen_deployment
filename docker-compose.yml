@@ -126,7 +126,7 @@ services:
         image: cae.driveline.gkn.com:5000/archimedes-deployment/grafana
         restart: always
         volumes:
-            - grafana-storage:/var/lib/grafana
+            - grafana_storage:/var/lib/grafana
         environment:
             - GF_SERVER_DOMAIN=cae.driveline.gkn.com
             - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/grafana/
@@ -241,7 +241,8 @@ services:
             - frontend
             - backend
 
-
+volumes:
+    grafana_storage:
 
 networks:
     frontend:
