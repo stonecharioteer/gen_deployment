@@ -52,8 +52,6 @@ services:
         ports:
             - "8500:8500"
         deploy:
-            restart_policy:
-                condition: always
             placement:
                 constraints:
                     - node.labels.loadbalancer == true
@@ -70,8 +68,6 @@ services:
         ports:
             - "15672:15672"
         deploy:
-            restart_policy:
-                condition: always
             placement:
                 constraints:
                     - node.labels.drawio == true
@@ -87,10 +83,7 @@ services:
         ports:
             - "80:80"
         deploy:
-            mode: replicated
-            replicas: 2
-            restart_policy:
-                condition: always
+            replicas: 1
             placement:
                 constraints:
                     - node.labels.loadbalancer == true
@@ -103,8 +96,6 @@ services:
             context: ./drawio
         image: cae.driveline.gkn.com:5000/archimedes-deployment/drawio
         deploy:
-            restart_policy:
-                condition: always
             placement:
                 constraints:
                     - node.labels.drawio == true
@@ -118,15 +109,12 @@ services:
         build:
             context: ./jobdb
         image: cae.driveline.gkn.com:5000/archimedes-deployment/jobdb
-        restart: always
         environment:
             - MONGO_INITDB_ROOT_USERNAME=root
             - MONGO_INITDB_ROOT_PASSWORD=P@ssw0rd
         volumes:
             - /opt/data/jobdb/data:/data/db
         deploy:
-            restart_policy:
-                condition: always
             placement:
                 constraints:
                     - node.labels.jobdb == true
@@ -139,7 +127,6 @@ services:
         build:
             context: ./cachedb
         image: cae.driveline.gkn.com:5000/archimedes-deployment/cachedb
-        restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=P@ssw0rd
         volumes:
@@ -147,8 +134,6 @@ services:
         # disable the strict mode
         command: --sql_mode=""
         deploy:
-            restart_policy:
-                condition: always
             placement:
                 constraints:
                     - node.labels.grafana == true
@@ -159,15 +144,12 @@ services:
         build:
             context: ./grafana
         image: cae.driveline.gkn.com:5000/archimedes-deployment/grafana
-        restart: always
         volumes:
             - grafana_storage:/var/lib/grafana
         environment:
             - GF_SERVER_DOMAIN=cae.driveline.gkn.com
             - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/grafana/
         deploy:
-            restart_policy:
-                condition: always
             placement:
                 constraints:
                     - node.labels.grafana == true
@@ -183,98 +165,86 @@ services:
             context: ./archimedes_docs
         image: cae.driveline.gkn.com:5000/archimedes-deployment/archimedes_docs
         deploy:
-            restart_policy:
-                condition: always
             placement:
                 constraints:
                     - node.labels.archimedes_services == true
         networks:
             - frontend
-
-    peter:
-        # Authentication service
-        # This is the archimedes authentication service
-        image: cae.driveline.gkn.com:5000/archimedes-deployment/peter
-        deploy:
-            # TODO: Enable multiple instances, with a shared cache of tokens between them; maybe use memcached for this.
-            replicas: 1
-            restart_policy:
-                condition: always
-            placement:
-                constraints:
-                    - node.labels.archimedes_services == true
-        networks:
-            - backend
+    # following services are disabled as they are still in WIP
+    # peter:
+    #     # Authentication service
+    #     # This is the archimedes authentication service
+    #     image: cae.driveline.gkn.com:5000/archimedes-deployment/peter
+    #     deploy:
+    #         # TODO: Enable multiple instances, with a shared cache of tokens between them; maybe use memcached for this.
+    #         replicas: 1
+    #         placement:
+    #             constraints:
+    #                 - node.labels.archimedes_services == true
+    #     networks:
+    #         - backend
         
 
-    ramanujan:
-        # Job management service.
-        # This writes to the job queue.
-        image: cae.driveline.gkn.com:5000/archimedes-deployment/ramanujan
-        depends_on:
-            - messagequeue
-            - jobdb
-        deploy:
-            replicas: 2
-            restart_policy:
-                condition: always
-            placement:
-                constraints:
-                    - node.labels.archimedes_services == true
-        networks:
-            - backend
+    # ramanujan:
+    #     # Job management service.
+    #     # This writes to the job queue.
+    #     image: cae.driveline.gkn.com:5000/archimedes-deployment/ramanujan
+    #     depends_on:
+    #         - messagequeue
+    #         - jobdb
+    #     deploy:
+    #         replicas: 2
+    #         placement:
+    #             constraints:
+    #                 - node.labels.archimedes_services == true
+    #     networks:
+    #         - backend
 
-    lineage:
-        # For now, the SVN Linker services
-        # This should be expanded to have data provenance.
-        # should this also handle the search?
-        image: cae.driveline.gkn.com:5000/archimedes-deployment/archimedes_lineage
-        depends_on:
-            - jobdb
-            - messagequeue
-        deploy:
-            replicas: 2
-            restart_policy:
-                condition: always
-            placement:
-                constraints:
-                    - node.labels.archimedes_services == true
-        networks:
-            - backend
+    # lineage:
+    #     # For now, the SVN Linker services
+    #     # This should be expanded to have data provenance.
+    #     # should this also handle the search?
+    #     image: cae.driveline.gkn.com:5000/archimedes-deployment/archimedes_lineage
+    #     depends_on:
+    #         - jobdb
+    #         - messagequeue
+    #     deploy:
+    #         replicas: 2
+    #         placement:
+    #             constraints:
+    #                 - node.labels.archimedes_services == true
+    #     networks:
+    #         - backend
 
-    archimedes_backend:
-        # core backend service. This is what jameswatt speaks to directly.
-        image: cae.driveline.gkn.com:5000/archimdedes-deployment/archimedes_backend
-        depends_on:
-            - peter
-            - ramanujan
-            - lineage
-        deploy:
-            replicas: 2
-            restart_policy:
-                condition: always
-            placement:
-                constraints:
-                    - node.labels.archimedes_services == true
-        networks:
-            - backend
+    # archimedes_backend:
+    #     # core backend service. This is what jameswatt speaks to directly.
+    #     image: cae.driveline.gkn.com:5000/archimdedes-deployment/archimedes_backend
+    #     depends_on:
+    #         - peter
+    #         - ramanujan
+    #         - lineage
+    #     deploy:
+    #         replicas: 2
+    #         placement:
+    #             constraints:
+    #                 - node.labels.archimedes_services == true
+    #     networks:
+    #         - backend
 
-    jameswatt:
-        # User Interface Service
-        # This is an Apache httpd image which hosts the UI.
-        image: cae.driveline.gkn.com:5000/archimedes-deployment/jameswatt
-        depends_on:
-            - archimedes_backend
-        deploy:
-            replicas: 2
-            restart_policy:
-                condition: always
-            placement:
-                constraints:
-                    - node.labels.archimedes_services == true
-        networks:
-            - frontend
-            - backend
+    # jameswatt:
+    #     # User Interface Service
+    #     # This is an Apache httpd image which hosts the UI.
+    #     image: cae.driveline.gkn.com:5000/archimedes-deployment/jameswatt
+    #     depends_on:
+    #         - archimedes_backend
+    #     deploy:
+    #         replicas: 2
+    #         placement:
+    #             constraints:
+    #                 - node.labels.archimedes_services == true
+    #     networks:
+    #         - frontend
+    #         - backend
 
 volumes:
     grafana_storage:
