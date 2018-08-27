@@ -1,0 +1,74 @@
+# Docker compose file to deploy the archimedes services across the docker swarm.
+# run on the headnode using portainer or just use:
+# docker stack deploy --compose-file docker-compose.yml archimedes_services
+# The images should be built and uploaded to the registry separately.
+# TODO: Write a script for that.
+version: "3.7"
+services:
+    serviceregistry:
+        # Consul container for service registry.
+        # Runs on node managers.
+        image: cae.driveline.gkn.com:5000/consul
+
+    jobdb:
+        # Job database.
+        # Mongo based container.
+        # TOOD: Find out how to have a shared instance over multiple nodes.
+        image: cae.driveline.gkn.com:5000/mongo
+
+    cachedb:
+        # Cached database for grafana
+        image: cae.driveline.gkn.com:5000/mysqldb
+
+    messagequeue:
+        # Rabbitmq container
+        # Scale across nodes.
+        image: cae.driveline.gkn.com:5000/rabbitmq
+
+    revproxy:
+        # nginx reverse proxy.
+        image: cae.driveline.gkn.com:5000/reverseproxy
+        ports:
+            - "80:80"
+        deploy:
+            replicas: 2
+
+    drawio:
+        # Clone of the draw.io docker (fjudith/draw.io) image.
+        image: cae.driveline.gkn.com:5000/draw.io
+
+    
+
+    docs:
+        # Documentation.
+        # This is an Apache httpd image which just hosts the sphinx
+        # docs for archimedes.
+        image: cae.driveline.gkn.com:5000/archimedes_docs
+
+    peter:
+        # Authentication service
+        # This is the archimedes authentication service
+        image: cae.driveline.gkn.com:5000/archimedes_peter
+        deploy:
+            replicas: 2
+
+    jameswatt:
+        # User Interface Service
+        # This is an Apache httpd image which hosts the UI.
+        image: cae.driveline.gkn.com:5000/archimedes_jameswatt
+        deploy:
+            replicas: 2
+
+    ramanujan:
+        # Job management service.
+        # This writes to the job queue.
+        image: cae.driveline.gkn.com:5000/ramanujan
+        deploy:
+            replicas: 2
+
+    lineage:
+        # For now, the SVN Linker services
+        # This should be expanded to have data provenance.
+        # should this also handle the search?
+        image: cae.driveline.gkn.com:5000/archimedes_lineage
+
